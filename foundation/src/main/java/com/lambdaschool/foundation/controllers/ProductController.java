@@ -27,7 +27,7 @@ public class ProductController
     public ResponseEntity<?> listAllProducts()
     {
         List<Product> myProducts = productService.findAll();
-        return new ResponseEntity<>(myProducts, HttpStatus.OK)
+        return new ResponseEntity<>(myProducts, HttpStatus.OK);
     }
 
     // Return a product object with a given id
@@ -46,20 +46,20 @@ public class ProductController
     produces = {"application/json"})
     public ResponseEntity<?> listProductByNameLike(
         @PathVariable
-        long productNameSubString)
+        String productNameSubString)
     {
         List<Product> myProducts = productService.findProductByNameLike(productNameSubString);
         return new ResponseEntity<>(myProducts, HttpStatus.OK);
     }
 
     // GET a list of all products with a certain category type
-    @GetMapping(value = "/products/category/{categorgyName}",
+    @GetMapping(value = "/products/category/{category}",
     produces = {"application/json"})
     public ResponseEntity<?> findProductByCategoryName(
         @PathVariable
-        long categorgyName)
+        String category)
     {
-        List<Product> myProducts = productService.findProductByCategoryName(categorgyName);
+        List<Product> myProducts = productService.findProductByCategory(category);
         return new ResponseEntity<>(myProducts, HttpStatus.OK);
     }
 
@@ -98,8 +98,6 @@ public class ProductController
         return new ResponseEntity<>(HttpStatus.OK);
     }
     // ------------------- PATCH Request ---------------------
-
-    // Need to build out a Patch
     @PatchMapping(value = "/product/{productid}",
     consumes = {"application/json"})
     public ResponseEntity<?> updateProduct(
@@ -120,6 +118,6 @@ public class ProductController
         long productid)
     {
         productService.delete(productid);
-        return new ResponseEntity<>(HttpStatus.OK)
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -55,7 +55,7 @@ public class SeedData
                                    Exception
     {
         // ------------ Product mock data -------------
-
+        productService.deleteAllProducts();
         Product p1 = new Product("Nikon Z6",
             "Nikon",
             "Mirrorless Digital Camera with 24-70mm Lens and Accessories Kit",
@@ -88,133 +88,134 @@ public class SeedData
             1300.00,
             "computer");
 
-        productService.save(p1);
-        productService.save(p2);
-        productService.save(p3);
-        productService.save(p4);
+        p1 = productService.save(p1);
+        p2 = productService.save(p2);
+        p3 = productService.save(p3);
+        p4 = productService.save(p4);
 
         // -------- creating mock user accounts ----------
         userService.deleteAll();
         roleService.deleteAll();
-        Role r1 = new Role("admin");
-        Role r2 = new Role("user");
-        Role r3 = new Role("data");
+                Role r1 = new Role("admin");
+                Role r2 = new Role("user");
+                Role r3 = new Role("data");
 
-        r1 = roleService.save(r1);
-        r2 = roleService.save(r2);
-        r3 = roleService.save(r3);
+                r1 = roleService.save(r1);
+                r2 = roleService.save(r2);
+                r3 = roleService.save(r3);
 
-        // admin, data, user
-        User u1 = new User("admin",
-            "password",
-            "admin@lambdaschool.local",
-            "John",
-            "Smith",
-            "08048",
-            "858-456-6586",
-            "profilepic1");
-        u1.getRoles()
-            .add(new UserRoles(u1,
-                r1));
-        u1.getRoles()
-            .add(new UserRoles(u1,
-                r2));
-        u1.getRoles()
-            .add(new UserRoles(u1,
-                r3));
-        // adding to OwnedProduct []
-        u1.getOwnedProducts()
-            .add(new OwnedProduct(u1,p1));
-        // adding to RentedProduct []
-        u1.getRentedProducts()
-            .add(new RentedProduct(u1, p2));
-        userService.save(u1);
+                // admin, data, user
+                User u1 = new User("admin",
+                    "password",
+                    "admin@lambdaschool.local",
+                    "John",
+                    "Smith",
+                    "08048",
+                    "858-456-6586",
+                    "profilepic1");
+                u1.getRoles()
+                    .add(new UserRoles(u1,
+                        r1));
+                u1.getRoles()
+                    .add(new UserRoles(u1,
+                        r2));
+                u1.getRoles()
+                    .add(new UserRoles(u1,
+                        r3));
+                // adding to OwnedProduct []
+                u1.getOwnedProducts()
+                    .add(new OwnedProduct(u1,p1));
+                // adding to RentedProduct []
+                u1.getRentedProducts()
+                    .add(new RentedProduct(u1, p2));
+                userService.save(u1);
 
-        // data, user
-        User u2 = new User("jackSmith2021",
-            "1234567",
-            "jackSmith2021@seeddata.com",
-            "Jack",
-            "Smith",
-            "08048",
-            "896-458-6666",
-            "profilepic2");
-        u2.getRoles()
-            .add(new UserRoles(u2,
-                r2));
-        u2.getRoles()
-            .add(new UserRoles(u2,
-                r3));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "cinnamon@mymail.local"));
-        // adding to OwnedProduct []
-        u2.getOwnedProducts()
-            .add(new OwnedProduct(u2,p2));
-        // adding to RentedProduct []
-        u2.getRentedProducts()
-            .add(new RentedProduct(u2, p3));
-        userService.save(u2);
+//                // data, user
+                User u2 = new User("jackSmith2021",
+                    "1234567",
+                    "jackSmith2021@seeddata.com",
+                    "Jack",
+                    "Smith",
+                    "08048",
+                    "896-458-6666",
+                    "profilepic2");
+                u2.getRoles()
+                    .add(new UserRoles(u2,
+                        r2));
+                u2.getRoles()
+                    .add(new UserRoles(u2,
+                        r3));
+                u2.getUseremails()
+                    .add(new Useremail(u2,
+                        "cinnamon@mymail.local"));
+                // adding to OwnedProduct []
+                u2.getOwnedProducts()
+                    .add(new OwnedProduct(u2,p2));
+                // adding to RentedProduct []
+                u2.getRentedProducts()
+                    .add(new RentedProduct(u2, p1));
+                userService.save(u2);
 
-        // user
-        User u3 = new User("mariaAngela2021",
-            "ILuvM4th!",
-            "mariaAngela2021@seeddata.com",
-            "Maria",
-            "Angela",
-            "11385",
-            "856-359-4444",
-            "profilepic3");
-        u3.getRoles()
-            .add(new UserRoles(u3,
-                r2));
-        u3.getUseremails()
-            .add(new Useremail(u3,
-                "barnbarn@email.local"));
-        // adding to OwnedProduct []
-        u3.getOwnedProducts()
-            .add(new OwnedProduct(u3,p3));
-        // adding to RentedProduct []
-        u3.getRentedProducts()
-            .add(new RentedProduct(u3, p4));
-        userService.save(u3);
+                // user
+                User u3 = new User("user",
+                    "password",
+                    "mariaAngela2021@seeddata.com",
+                    "Maria",
+                    "Angela",
+                    "11385",
+                    "856-359-4444",
+                    "profilepic3");
+                u3.getRoles()
+                    .add(new UserRoles(u3,
+                        r2));
+                u3.getUseremails()
+                    .add(new Useremail(u3,
+                        "barnbarn@email.local"));
+                // adding to OwnedProduct []
+                u3.getOwnedProducts()
+                    .add(new OwnedProduct(u3,p3));
+                // adding to RentedProduct []
+                u3.getRentedProducts()
+                    .add(new RentedProduct(u3, p4));
+                userService.save(u3);
 
-        User u4 = new User("davidSin2021",
-            "password",
-            "davidsin2021@seeddata.com",
-            "David",
-            "Sin",
-            "10014",
-            "456-999-8888",
-            "profilepic4");
-        u4.getRoles()
-            .add(new UserRoles(u4,
-                r2));
-        // adding to OwnedProduct []
-        u4.getOwnedProducts()
-            .add(new OwnedProduct(u4,p4));
-        // adding to RentedProduct []
-        u4.getRentedProducts()
-            .add(new RentedProduct(u4, p3));
-        userService.save(u4);
+                User u4 = new User("davidSin2021",
+                    "password",
+                    "davidsin2021@seeddata.com",
+                    "David",
+                    "Sin",
+                    "10014",
+                    "456-999-8888",
+                    "profilepic4");
+                u4.getRoles()
+                    .add(new UserRoles(u4,
+                        r2));
+                // adding to OwnedProduct []
+                u4.getOwnedProducts()
+                    .add(new OwnedProduct(u4,p4));
+                // adding to RentedProduct []
+                u4.getRentedProducts()
+                    .add(new RentedProduct(u4, p3));
+                userService.save(u4);
 
-        User u5 = new User("susanSmith2021",
-            "password",
-            "susansmith@seeddata.com",
-            "Susan",
-            "Smith",
-            "11245",
-            "789-658-6666",
-            "profilepic5");
-        u5.getRoles()
-            .add(new UserRoles(u5,
-                r2));
-        // adding to OwnedProduct []
-        u5.getOwnedProducts()
-            .add(new OwnedProduct(u5,p2));
-        // adding to RentedProduct []
-        u5.getRentedProducts()
-            .add(new RentedProduct(u5, p3));
-        userService.save(u5);
+                User u5 = new User("susanSmith2021",
+                    "password",
+                    "susansmith@seeddata.com",
+                    "Susan",
+                    "Smith",
+                    "11245",
+                    "789-658-6666",
+                    "profilepic5");
+                u5.getRoles()
+                    .add(new UserRoles(u5,
+                        r2));
+                // adding to OwnedProduct []
+                u5.getOwnedProducts()
+                    .add(new OwnedProduct(u5,p2));
+                // adding to RentedProduct []
+                u5.getRentedProducts()
+                    .add(new RentedProduct(u5, p3));
+                userService.save(u5);
+        }
+
     }
-}

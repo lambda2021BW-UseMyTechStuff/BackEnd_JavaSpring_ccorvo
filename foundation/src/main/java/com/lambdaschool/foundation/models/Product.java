@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.w3c.dom.stylesheets.LinkStyle;
 
@@ -31,27 +32,40 @@ public class Product
 
     private String productImageUrl;
 
+    // ---------------------------
+    @Transient
+    @JsonIgnore
+    public boolean hasValueForPricePerDay = false;
+
     private double pricePerDay;
 
+    // ----------------------------
+
+    //----------------------------
+    @Transient
+    @JsonIgnore
+    public boolean hasValueForPricePerWeek = false;
+
     private double pricePerWeek;
+    //---------------------------------
 
     @NotNull
     private String category;
 
     // -------------- Association Fields -----------
-    @OneToMany(mappedBy = "product",
-    cascade = CascadeType.ALL,
-    orphanRemoval = true)
-    @JsonIgnoreProperties(value = "product",
-    allowSetters = true)
-    private List<RentedProduct> rentedProducts = new ArrayList<>();
-
-    @OneToMany(mappedBy = "product",
-    cascade = CascadeType.ALL,
-    orphanRemoval = true)
-    @JsonIgnoreProperties(value = "product",
-    allowSetters = true)
-    private List<OwnedProduct> ownedProducts = new ArrayList<>();
+//    @OneToMany(mappedBy = "product",
+//    cascade = CascadeType.ALL,
+//    orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "product",
+//    allowSetters = true)
+//    private List<RentedProduct> rentedProducts = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "product",
+//    cascade = CascadeType.ALL,
+//    orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "product",
+//    allowSetters = true)
+//    private List<OwnedProduct> ownedProducts = new ArrayList<>();
 
     // -------------- Constructors ---------------
     public Product()
@@ -137,6 +151,7 @@ public class Product
 
     public void setPricePerDay(double pricePerDay)
     {
+        hasValueForPricePerDay = true;
         this.pricePerDay = pricePerDay;
     }
 
@@ -147,6 +162,7 @@ public class Product
 
     public void setPricePerWeek(double pricePerWeek)
     {
+        hasValueForPricePerWeek = true;
         this.pricePerWeek = pricePerWeek;
     }
 
@@ -162,23 +178,23 @@ public class Product
 
     // --------------- Association Getters and Setters ---------------
 
-    public List<RentedProduct> getRentedProducts()
-    {
-        return rentedProducts;
-    }
-
-    public void setRentedProducts(List<RentedProduct> rentedProducts)
-    {
-        this.rentedProducts = rentedProducts;
-    }
-
-    public List<OwnedProduct> getOwnedProducts()
-    {
-        return ownedProducts;
-    }
-
-    public void setOwnedProducts(List<OwnedProduct> ownedProducts)
-    {
-        this.ownedProducts = ownedProducts;
-    }
+//    public List<RentedProduct> getRentedProducts()
+//    {
+//        return rentedProducts;
+//    }
+//
+//    public void setRentedProducts(List<RentedProduct> rentedProducts)
+//    {
+//        this.rentedProducts = rentedProducts;
+//    }
+//
+//    public List<OwnedProduct> getOwnedProducts()
+//    {
+//        return ownedProducts;
+//    }
+//
+//    public void setOwnedProducts(List<OwnedProduct> ownedProducts)
+//    {
+//        this.ownedProducts = ownedProducts;
+//    }
 }

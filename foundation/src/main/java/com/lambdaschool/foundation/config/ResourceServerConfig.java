@@ -72,6 +72,20 @@ public class ResourceServerConfig
             .antMatchers(HttpMethod.PUT,
                 "/users/**")
             .hasAnyRole("ADMIN")
+            //---------------------------------------------------
+            .antMatchers(HttpMethod.GET,
+                "/products/**")
+            .hasAnyRole("ADMIN", "USER", "DATA")
+            .antMatchers(HttpMethod.POST,
+                "/products/**")
+            .hasAnyRole("ADMIN", "USER", "DATA")
+            .antMatchers(HttpMethod.PUT,
+                "/products/**")
+            .hasAnyRole("ADMIN", "USER", "DATA")
+            .antMatchers(HttpMethod.PATCH,
+                "/products/**")
+            .hasAnyRole("ADMIN", "USER", "DATA")
+            //------------------------------------------------------
             .antMatchers("/users/**",
                 "/useremails/**",
                 "/oauth/revoke-token",
