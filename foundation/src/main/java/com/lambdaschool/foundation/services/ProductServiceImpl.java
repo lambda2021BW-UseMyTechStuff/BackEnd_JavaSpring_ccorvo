@@ -18,6 +18,9 @@ public class ProductServiceImpl implements ProductService
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private HelperFunctions helperFunctions;
+
 
     // --------------- Business Logic for GET -------------------------------------
     @Override
@@ -67,42 +70,51 @@ public class ProductServiceImpl implements ProductService
         Product currentProduct = productRepository.findById(productid)
             .orElseThrow(()-> new ResourceNotFoundException("Product " + productid + " not found."));
 
-        if(product.getProductName() != null)
+        if(helperFunctions.isAuthorizedToUpdateProduct(productid))
         {
-            currentProduct.setProductName(product.getProductName());
-        }
+            if (product.getProductName() != null)
+            {
+                currentProduct.setProductName(product.getProductName());
+            }
 
-        if(product.getBrandName() != null)
+            if (product.getBrandName() != null)
+            {
+                currentProduct.setBrandName(product.getBrandName());
+            }
+
+            if (product.getDescription() != null)
+            {
+                currentProduct.setDescription(product.getDescription());
+            }
+
+            if (product.getProductImageUrl() != null)
+            {
+                currentProduct.setProductImageUrl(product.getProductImageUrl());
+            }
+
+            if (product.hasValueForPricePerDay)
+            {
+                currentProduct.setPricePerDay(product.getPricePerDay());
+            }
+
+            if (product.hasValueForPricePerWeek)
+            {
+                currentProduct.setPricePerWeek(product.getPricePerWeek());
+            }
+
+            if (product.getCategory() != null)
+            {
+                currentProduct.setCategory(product.getCategory());
+            }
+
+            return productRepository.save(currentProduct);
+        }
+        else
         {
-            currentProduct.setBrandName(product.getBrandName());
+            // We should never get to this line but it is needed for the compiler
+            // inorder to recognize that this exception can be thrown
+            throw new ResourceNotFoundException("This user is not authorized to make change.");
         }
-
-        if(product.getDescription() != null)
-        {
-            currentProduct.setDescription(product.getDescription());
-        }
-
-        if(product.getProductImageUrl() != null)
-        {
-            currentProduct.setProductImageUrl(product.getProductImageUrl());
-        }
-
-        if(product.hasValueForPricePerDay)
-        {
-            currentProduct.setPricePerDay(product.getPricePerDay());
-        }
-
-        if(product.hasValueForPricePerWeek)
-        {
-            currentProduct.setPricePerWeek(product.getPricePerWeek());
-        }
-
-        if(product.getCategory() != null)
-        {
-            currentProduct.setCategory(product.getCategory());
-        }
-
-        return productRepository.save(currentProduct);
     }
 
     @Transactional

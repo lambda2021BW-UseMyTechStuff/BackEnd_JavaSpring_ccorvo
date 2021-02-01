@@ -2,7 +2,10 @@ package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.ValidationError;
+import com.lambdaschool.foundation.repository.OwnedRepository;
+import com.lambdaschool.foundation.repository.ProductRepository;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +20,15 @@ import java.util.List;
 public class HelperFunctionsImpl
     implements HelperFunctions
 {
+    @Autowired
+    private OwnedRepository ownedRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProductService productService;
+
     public List<ValidationError> getConstraintViolation(Throwable cause)
     {
         // Find any data violations that might be associated with the error and report them
@@ -89,5 +101,24 @@ public class HelperFunctionsImpl
             throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
         }
     }
+
+    @Override
+    public boolean isAuthorizedToUpdateProduct(long productid)
+    {
+        Authentication authentication = SecurityContextHolder.getContext()
+            .getAuthentication();
+        if (ownedRepository.findByUser_UseridAndProduct_Productid(userService.findByName(authentication.getName())
+                .getUserid(), productid) != null || authentication.getAuthorities()
+            .contains(new SimpleGrantedAuthority("ROLE_ADMIN")))
+        {
+            // this user can make this change
+            return true;
+        } else
+        {
+            // stop user is not authorized to make this change so stop the whole process and throw an exception
+            throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
+        }
+    }
+
 
 }
