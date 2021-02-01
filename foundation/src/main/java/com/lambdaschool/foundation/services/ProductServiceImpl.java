@@ -139,7 +139,7 @@ public class ProductServiceImpl implements ProductService
         newProduct.setPricePerWeek(product.getPricePerWeek());
         newProduct.setCategory(product.getCategory());
 
-        System.out.println(newProduct);
+
 
         return productRepository.save(newProduct);
     }
