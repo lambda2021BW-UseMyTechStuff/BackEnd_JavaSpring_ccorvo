@@ -112,7 +112,7 @@ public class SeedData
                     "Smith",
                     "08048",
                     "858-456-6586",
-                    "profilepic1");
+                    "https://uploads-ssl.webflow.com/5dc1432400ebeb08f8cb067e/5dc1435564067e81c49ac8da_Nav%20Jyoti.jpg");
                 u1.getRoles()
                     .add(new UserRoles(u1,
                         r1));
@@ -138,7 +138,7 @@ public class SeedData
                     "Smith",
                     "08048",
                     "896-458-6666",
-                    "profilepic2");
+                    "http://metrotaps.com/wp-content/uploads/2016/08/amelia.png");
                 u2.getRoles()
                     .add(new UserRoles(u2,
                         r2));
@@ -164,7 +164,7 @@ public class SeedData
                     "Angela",
                     "11385",
                     "856-359-4444",
-                    "profilepic3");
+                    "http://metrotaps.com/wp-content/uploads/2016/08/ghg.png");
                 u3.getRoles()
                     .add(new UserRoles(u3,
                         r2));
@@ -186,7 +186,7 @@ public class SeedData
                     "Sin",
                     "10014",
                     "456-999-8888",
-                    "profilepic4");
+                    "http://metrotaps.com/wp-content/uploads/2016/08/dsd.png");
                 u4.getRoles()
                     .add(new UserRoles(u4,
                         r2));
@@ -205,7 +205,7 @@ public class SeedData
                     "Smith",
                     "11245",
                     "789-658-6666",
-                    "profilepic5");
+                    "http://www.microstar.ng/images/user.jpg");
                 u5.getRoles()
                     .add(new UserRoles(u5,
                         r2));
